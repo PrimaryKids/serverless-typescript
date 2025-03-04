@@ -27,25 +27,6 @@ jobs:
       - id: serverless-version
         name: Set Serverless latest version
         run: echo "::set-output name=version::$(npm list serverless | grep serverless@ | sed 's/.*serverless@/v/g' | tr -d '[[:space:]]')"
-
-      - name: Generate definitions
-        run: npx sls schema
-
-      - name: Update package.json version
-        run: npm version ${{ steps.serverless-version.outputs.version }} --git-tag-version=false
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v5
-        with:
-          author_name: Primary
-          author_email: tech@primary.com
-          branch: master
-          message: Add Serverless definitions for ${{ steps.serverless-version.outputs.version }}
-          add: index.d.ts package.json
-          tag: ${{ steps.serverless-version.outputs.version }} --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
             # Publish to GitHub Packages
       - name: Publish to GitHub Packages
         run: npm publish
