@@ -234,6 +234,7 @@ export interface AWS {
                         scopes?: (string | AwsCfInstruction)[];
                         type?: string | string | string | string | string;
                       };
+                  caching?: { enabled: boolean }
                   connectionId?: AwsCfInstruction;
                   connectionType?: string | string;
                   cors?:
