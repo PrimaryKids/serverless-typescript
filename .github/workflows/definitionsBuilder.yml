@@ -24,10 +24,6 @@ jobs:
       - name: Build plugin
         run: npm run build
 
-      - id: serverless-version
-        name: Set Serverless latest version
-        run: echo "::set-output name=version::$(npm list serverless | grep serverless@ | sed 's/.*serverless@/v/g' | tr -d '[[:space:]]')"
-            # Publish to GitHub Packages
       - name: Publish to GitHub Packages
         run: npm publish
         env:
